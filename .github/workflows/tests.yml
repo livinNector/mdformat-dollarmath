@@ -3,34 +3,34 @@ name: CI
 on:
   push:
     branches: [master]
-    tags:
-      - "v*"
+    tags: ["*.*.*"]
   pull_request:
+    branches: [master]
 
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v5
         with:
-          python-version: 3.7
-      - uses: pre-commit/action@v2.0.0
+          python-version: 3.11
+      - uses: pre-commit/action@v3.0.0
 
   tests:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        python-version: [3.6, 3.7, 3.8, 3.9]
+        python-version: [3.7, 3.11]
         os: [ubuntu-latest, windows-latest]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -38,21 +38,22 @@ jobs:
         # we install with flit --pth-file,
         # so that coverage will be recorded for the module
         run: |
-          pip install flit
+          pip install flit~=3.0
           flit install --deps=production --extras=test --pth-file
 
       - name: Run pytest
         run: |
-          pytest --cov=mdformat_dollarmath --cov-report=xml --cov-report=term-missing
+          pytest --cov=mdformat_myst --cov-report=xml --cov-report=term-missing
 
-      - name: Upload to Codecov
-        if: matrix.os == 'ubuntu-latest' && matrix.python-version == 3.7
-        uses: codecov/codecov-action@v1
-        with:
-          name: pytests-py3.7
-          flags: pytests
-          file: ./coverage.xml
-          fail_ci_if_error: true
+    # FYI: Requires token to continue usage
+    # - name: Upload to Codecov
+    #   if: matrix.os == 'ubuntu-latest' && matrix.python-version == 3.8
+    #   uses: codecov/codecov-action@v1
+    #   with:
+    #     name: pytests
+    #     flags: pytests
+    #     file: ./coverage.xml
+    #     fail_ci_if_error: true
 
   pre-commit-hook:
     runs-on: ubuntu-latest
@@ -62,7 +63,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.7
+          python-version: 3.8
 
       - name: Installation (deps and package)
         run: |
@@ -80,11 +81,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
-        uses: actions/checkout@v2
-      - name: Set up Python 3.7
-        uses: actions/setup-python@v1
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          python-version: 3.7
+          python-version: 3.9
       - name: install flit
         run: |
           pip install flit~=3.0
@@ -93,4 +94,4 @@ jobs:
           flit publish
         env:
           FLIT_USERNAME: __token__
-          FLIT_PASSWORD: ${{ secrets.PYPI_KEY }}
+          FLIT_PASSWORD: ${{ secrets.PYPI_TOKEN }}
