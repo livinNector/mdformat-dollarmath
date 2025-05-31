@@ -6,9 +6,9 @@
 
 An [mdformat](https://github.com/executablebooks/mdformat) plugin for  dollarmath support for gfm like markdown.
 
-This converts inline double dollar math to block double dollar and converts amsmath blocks to dollarmath blocks.
+This converts inline double dollar math to block double dollar to dollarmath blocks.
 
-To enhance support for math renderers converts `align` environment to `aligned` environment.
+To enhance support for math renderers, converts `align` environment to `aligned` environment upon specifying an environment variable.
 
 ## Examples
 
@@ -28,38 +28,18 @@ $$
 What is the radius of the circle?
 ```
 
-### Amsmath to block math
-
-```markdown
-Given
-\begin{gather*}
-a = 5 & b = 6 & c =7 \\
-e = 8 & f = 8 & g = 9
-\end{gather*}
-Find $a+b+c+d+e+f+g$.
-```
-
-```markdown
-Given
-
-$$
-\begin{gather*}
-a = 5 & b = 6 & c =7 \\
-e = 8 & f = 8 & g = 9
-\end{gather*}
-$$
-
-Find $a+b+c+d+e+f+g$.
-```
-
 ### `align` to `aligned`
+
+Converts `align` and `align*`  to `aligned` upon seting the environment variable `MDFORMAT_DOLLARMATH_USE_ALIGNED=1`.
 
 ```markdown
 Consider the following equations
+$$
 \begin{align}
 3x+4y &= 5 \\
 5x-3y &= 8
 \end{align}
+$$
 Find $x$ and $y$.
 ```
 

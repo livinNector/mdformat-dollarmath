@@ -37,43 +37,135 @@ $$
 What is the radius of the circle?
 .
 
-Amsmath
+Double Inline block after soft break
 .
 Given
-\begin{gather*}
-a = 5 & b = 6 & c =7 \\
-e = 8 & f = 8 & g = 9
-\end{gather*}
-Find $a+b+c+d+e+f+g$.
+$$x^2 + y^2 = 9$$
+What is the radius of the circle?
 .
 Given
 
 $$
-\begin{gather*}
-a = 5 & b = 6 & c =7 \\
-e = 8 & f = 8 & g = 9
-\end{gather*}
+x^2 + y^2 = 9
 $$
 
-Find $a+b+c+d+e+f+g$.
+What is the radius of the circle?
+.
+
+Double Inline block after hard break
+.
+Given  
+$$x^2 + y^2 = 9$$
+What is the radius of the circle?
+.
+Given
+
+$$
+x^2 + y^2 = 9
+$$
+
+What is the radius of the circle?
+.
+
+Double Inline block after other blocks
+.
+```python
+print('circle')
+```
+$$x^2 + y^2 = 9$$ is the the equation of the circle.
+What is the radius of the circle?
+.
+```python
+print('circle')
+```
+
+$$
+x^2 + y^2 = 9
+$$
+
+is the the equation of the circle.
+What is the radius of the circle?
+.
+
+Double Inline math block at start
+.
+$$x^2 + y^2 = 9$$ is the the equation of the circle.
+What is the radius of the circle?
+.
+$$
+x^2 + y^2 = 9
+$$
+
+is the the equation of the circle.
+What is the radius of the circle?
+.
+
+Multiline Double Inline math block at start
+.
+$$
+x^2 + y^2 = 9
+$$
+is the the equation of the circle.
+What is the radius of the circle?
+.
+$$
+x^2 + y^2 = 9
+$$
+
+is the the equation of the circle.
+What is the radius of the circle?
+.
+
+Multiline Double Inline math block at start and continue in same line
+.
+$$
+x^2 + y^2 = 9
+$$ is the the equation of the circle.
+What is the radius of the circle?
+.
+$$
+x^2 + y^2 = 9
+$$
+
+is the the equation of the circle.
+What is the radius of the circle?
+.
+
+Multiline Double Inline math with text at start and end
+.
+Given $$
+x^2 + y^2 = 9
+$$ is the the equation of the circle.
+What is the radius of the circle?
+.
+Given
+
+$$
+x^2 + y^2 = 9
+$$
+
+is the the equation of the circle.
+What is the radius of the circle?
 .
 
 align
 .
 Consider the following equations
+$$
 \begin{align}
 3x+4y &= 5 \\
 5x-3y &= 8
 \end{align}
+$$
 Find $x$ and $y$.
 .
 Consider the following equations
 
 $$
-\begin{aligned}
+\begin{align}
 3x+4y &= 5 \\
 5x-3y &= 8
-\end{aligned}
+\end{align}
 $$
 
 Find $x$ and $y$.
@@ -82,19 +174,21 @@ Find $x$ and $y$.
 align*
 .
 Consider the following equations
+$$
 \begin{align*}
 3x+4y &= 5 \\
 5x-3y &= 8
 \end{align*}
+$$
 Find $x$ and $y$.
 .
 Consider the following equations
 
 $$
-\begin{aligned}
+\begin{align*}
 3x+4y &= 5 \\
 5x-3y &= 8
-\end{aligned}
+\end{align*}
 $$
 
 Find $x$ and $y$.
