@@ -100,6 +100,19 @@ is the the equation of the circle.
 What is the radius of the circle?
 .
 
+Double Inline math block at end.
+.
+What is the radius of the circle?   
+If the equation of the circle is given by $$x^2 + y^2 = 9$$
+.
+What is the radius of the circle?\
+If the equation of the circle is given by
+
+$$
+x^2 + y^2 = 9
+$$
+.
+
 Multiline Double Inline math block at start
 .
 $$

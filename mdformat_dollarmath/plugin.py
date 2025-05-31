@@ -14,7 +14,6 @@ def update_mdit(mdit: MarkdownIt) -> None:
 def format_math_block_content(content):
     # strip and remove blank lines
     content = re.sub(r"\n+", "\n", content.strip(), re.DOTALL)
-    print(os.environ.get("MDFORMAT_DOLLARMATH_USE_ALIGNED", False))
     if os.environ.get("MDFORMAT_DOLLARMATH_USE_ALIGNED", False):
         # for engines that do not support aligned in math mode
         content = re.sub(r"\\(begin|end){align\*?}", r"\\\1{aligned}", content)
@@ -51,6 +50,9 @@ def _math_inline_double_renderer(node: RenderTreeNode, context: RenderContext) -
             suffix += "\n"
     else:
         suffix = "\n\n"
+
+    if not node.next_sibling:
+        suffix = ""
 
     return f"{prefix}$${format_math_block_content(node.content.strip())}$${suffix}"
 
