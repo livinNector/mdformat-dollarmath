@@ -160,6 +160,45 @@ $$
 is the the equation of the circle.
 What is the radius of the circle?
 .
+Multiple Double Inline math
+.
+Given
+$$ x^2 + y^2 = 9 $$
+is the the equation of the circle and
+$$x>=0$$
+What is the radius of the circle?
+.
+Given
+
+$$
+x^2 + y^2 = 9
+$$
+
+is the the equation of the circle and
+
+$$
+x>=0
+$$
+
+What is the radius of the circle?
+.
+Multiple Continious Double Inline math
+.
+Given $$ x^2 + y^2 = 9 $$ $$x>=0$$
+What is the radius of the circle?
+.
+Given
+
+$$
+x^2 + y^2 = 9
+$$
+
+$$
+x>=0
+$$
+
+What is the radius of the circle?
+.
 
 Double inline in list
 .

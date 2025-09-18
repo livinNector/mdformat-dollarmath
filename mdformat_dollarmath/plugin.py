@@ -11,18 +11,39 @@ from mdit_py_plugins.dollarmath import dollarmath_plugin
 
 softbreak_token = Token(type="softbreak", tag="", nesting=0, markup="\n")
 
+p_open_token = Token("paragraph_open", "p", nesting=1, attrs={}, block=True)
+p_close_token = Token("paragraph_close", "p", nesting=-1, attrs={}, block=True)
+
+
+def inline_token(children, level=0):
+    return Token("inline", "", nesting=0, attrs={}, children=children, level=level)
+
+
+def math_block_token(content, level=0):
+    return Token(
+        "math_block",
+        tag="math",
+        markup="$$",
+        nesting=0,
+        attrs={},
+        content=content,
+        block=True,
+        level=level,
+    )
+
 
 def dollar_math_inline_double_to_block(md: MarkdownIt):
     def extract_math_inline_double(state: StateCore):
         i = 0
-        while i < len(state.tokens):
-            if state.tokens[i].type == "inline":
-                inner_tokens = state.tokens[i].children
+        tokens = state.tokens
+        while i < len(tokens):
+            if tokens[i].type == "inline":
+                inner_tokens = tokens[i].children
                 j = 0
                 while j < len(inner_tokens):
                     if inner_tokens[j].type == "math_inline_double":
-                        level = state.tokens[i].level
-                        state.tokens[i - 1].hidden = state.tokens[i + 1].hidden = False
+                        level = tokens[i].level
+                        tokens[i - 1].hidden = tokens[i + 1].hidden = False
 
                         if inner_tokens[j - 1].type in ["softbreak", "hardbreak"]:
                             inner_tokens.pop(j - 1)
@@ -44,52 +65,17 @@ def dollar_math_inline_double_to_block(md: MarkdownIt):
                                 j + 1
                             ].content.lstrip()
                         if len(inner_tokens) != j + 1:
-                            state.tokens.insert(
-                                i + 1,
-                                Token(
-                                    "inline",
-                                    "",
-                                    nesting=0,
-                                    attrs={},
-                                    children=inner_tokens[j + 1 :],
-                                    level=level,
-                                ),
+                            tokens.insert(
+                                i + 1, inline_token(inner_tokens[j + 1 :], level=level)
                             )
-                            state.tokens.insert(
-                                i + 1,
-                                Token(
-                                    "paragraph_open",
-                                    "p",
-                                    nesting=1,
-                                    attrs={},
-                                    block=True,
-                                ),
-                            )
-                        state.tokens.insert(
+                            tokens.insert(i + 1, p_open_token)
+                        tokens.insert(
                             i + 1 if len(inner_tokens) != j + 1 else i + 2,
-                            Token(
-                                "math_block",
-                                tag="math",
-                                markup="$$",
-                                nesting=0,
-                                attrs={},
-                                content=inner_tokens[j].content,
-                                block=True,
-                                level=level,
-                            ),
+                            math_block_token(inner_tokens[j].content, level=level),
                         )
                         if len(inner_tokens) != j + 1:
-                            state.tokens.insert(
-                                i + 1,
-                                Token(
-                                    "paragraph_close",
-                                    "p",
-                                    nesting=-1,
-                                    attrs={},
-                                    block=True,
-                                ),
-                            )
-                        state.tokens[i].children = inner_tokens[:j]
+                            tokens.insert(i + 1, p_close_token)
+                        tokens[i].children = inner_tokens = inner_tokens[:j]
 
                     j += 1
             i += 1

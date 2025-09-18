@@ -33,6 +33,8 @@ exclude = [".github/", "tests/"]
 
 [tool.ruff]
 line-length = 88
+
+[tool.ruff.lint]
 # These checks violate PEP8 so let's ignore them
 ignore = ["E203"]
 
